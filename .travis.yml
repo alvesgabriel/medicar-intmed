@@ -22,10 +22,11 @@ install:
 
 before_script:
   - psql -c "CREATE DATABASE testdb;" -U postgres
+  - pipenv run python manage.py migrate --noinput
 
 script:
   - pipenv run flake8 .
-#   - pipenv run pytest --cov=eleven
+  - pipenv run pytest --cov=eleven
 
-# after_success:
-#   - pipenv run codecov
+after_success:
+  - pipenv run codecov

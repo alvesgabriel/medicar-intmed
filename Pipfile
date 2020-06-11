@@ -17,6 +17,7 @@ python-decouple = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 dj3-cloudinary-storage = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"
