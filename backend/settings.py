@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
 from decouple import Csv, config
 from dj_database_url import parse as dburl
 
@@ -123,10 +124,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CLOUDINARY_URL = config('CLOUDINARY_URL', default=None)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-if CLOUDINARY_URL:
-    STATIC_URL = '/backend/static/'
-    MEDIA_URL = '/backend/media/'
+# Cloudinary credentials
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=False),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=False),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=False),
+    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest'),
+}
+
+if CLOUDINARY_STORAGE['CLOUD_NAME'] and CLOUDINARY_STORAGE['API_KEY'] and CLOUDINARY_STORAGE['API_SECRET']:
+    STATIC_URL = '/medicar-intmed/static/'
+    MEDIA_URL = '/medicar-intmed/media/'
+
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
