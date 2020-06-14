@@ -1,0 +1,50 @@
+.example-container .mat-form-field {
+    margin-left: 8px;
+}
+
+.mat-form-field {
+    width: 95%;
+}
+
+.mat-form-field, mat-label {
+    color: #A8A8A8;
+}
+
+.title {
+    margin-left: 8px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    color: #444444;
+}
+
+.logo {
+    margin-left: 8px;
+    /* margin-bottom: 16px; */
+}
+
+.mat-flat-button {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    align-items: center;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.cancelar {
+    color: #49B4BB;
+    background: #FFFFFF;
+}
+
+.confirmar {
+    text-align: center;
+    color: #FFFFFF;
+    background: #49B4BB;
+}

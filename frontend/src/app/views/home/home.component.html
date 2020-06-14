@@ -1,0 +1,53 @@
+<div class="example-container">
+  <div class="container">
+    <div class="box">
+
+      <img class="logo" src="assets/logo.png" />
+
+      <h1 class="title">Crie sua Conta</h1>
+
+      <form #form="ngForm" [formGroup]="userForm">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="name" required>
+          <mat-error *ngIf="userForm.get('name').invalid">{{getErrorMessageName()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="email@example.com" formControlName="email" required>
+          <mat-error *ngIf="userForm.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="hide_pass ? 'password' : 'text'" formControlName="password" required>
+          <mat-error *ngIf="userForm.get('password').invalid">{{getErrorMessagePassword()}}</mat-error>
+          <button mat-icon-button matSuffix (click)="hide_pass = !hide_pass" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide_pass">
+            <mat-icon>{{hide_pass ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar Senha</mat-label>
+          <input matInput [type]="hide_pass_confirm ? 'password' : 'text'" formControlName="password_confirm" required>
+          <mat-error *ngIf="userForm.get('password_confirm').invalid">{{getErrorMessagePasswordConfirm()}}</mat-error>
+          <button mat-icon-button matSuffix (click)="hide_pass_confirm = !hide_pass_confirm"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide_pass_confirm">
+            <mat-icon>{{hide_pass_confirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <button mat-flat-button fxFlex="0 1 calc(50% - 11px)" fxFlex-lt-md="0 1 calc(50% - 11px)" fxFlex-lt-sm="100%"
+            class="cancelar">Cancelar</button>
+          <button mat-flat-button fxFlex="0 1 calc(50% - 11px)" fxFlex-lt-md="0 1 calc(50% - 11px)" fxFlex-lt-sm="100%"
+            (click)="createUser(form)" class="confirmar">Confirmar</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

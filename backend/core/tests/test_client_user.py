@@ -7,7 +7,7 @@ import pytest
         {
             'email': 'rebecca.addler@gmail.com',
             'password': 'rebeca@123',
-            'first_name': 'Rebecca',
+            'name': 'Rebecca Adler',
         }
     ]
 )
