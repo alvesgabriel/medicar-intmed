@@ -43,7 +43,7 @@ class UserAdmin(admin.ModelAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
-    list_display = ('email', 'name', 'is_staff')
+    list_display = ('id', 'email', 'name', 'password', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('name', 'email')
     ordering = ('name',)
