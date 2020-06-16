@@ -43,9 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
+    # Third-Party Apps
     'cloudinary',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
+    # Local Apps
     'backend.core',
 ]
 
@@ -150,6 +153,9 @@ if CLOUDINARY_STORAGE['CLOUD_NAME'] and CLOUDINARY_STORAGE['API_KEY'] and CLOUDI
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
