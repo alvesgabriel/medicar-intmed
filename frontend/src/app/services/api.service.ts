@@ -20,6 +20,10 @@ export class ApiService {
   ) { }
 
   createUser(data): Observable<any> {
-    return this.httpClient.post(`${this.SERVER_URL}/users/`, data, this.httpOptions)
+    return this.httpClient.post(`${this.SERVER_URL}/users/`, data, this.httpOptions);
+  }
+
+  login(data): Observable<any> {
+    return this.httpClient.post(`${this.SERVER_URL}/login/`, data, this.httpOptions);
   }
 }
