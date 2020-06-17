@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local Apps
     'backend.core',
+    'backend.atendimento',
 ]
 
 MIDDLEWARE = [

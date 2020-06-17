@@ -18,10 +18,12 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-from backend.core import views
+from backend.atendimento.views import EspecialidadeViewSet
+from backend.core.views import UserViewSet
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'especialidades', EspecialidadeViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
