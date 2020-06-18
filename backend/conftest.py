@@ -1,10 +1,10 @@
 import pytest
 from django.urls import reverse
 
-from backend.atendimento.models import Especialidade
+from backend.atendimento.models import Especialidade, Medico
 
 
-@pytest.fixture()
+@pytest.fixture
 def logged_user(db, client):
     user = {
         'email': 'rebecca.addler@gmail.com',
@@ -19,7 +19,7 @@ def logged_user(db, client):
         }
 
 
-@pytest.fixture()
+@pytest.fixture
 def auth_token(db, client, logged_user):
     resp = client.post(reverse('login_token'), logged_user)
     token = {
@@ -28,7 +28,7 @@ def auth_token(db, client, logged_user):
     return token
 
 
-@pytest.fixture()
+@pytest.fixture
 def especialidades(db):
     especialidades = [
         {"nome": "Pediatria"},
@@ -37,4 +37,31 @@ def especialidades(db):
         {"nome": "Clínico Geral"},
     ]
     for especialidade in especialidades:
-        Especialidade.objects.create(**especialidade)
+        nova_especialidade = Especialidade.objects.create(**especialidade)
+        especialidade.update({'id': nova_especialidade.id})
+    return especialidades
+
+
+@pytest.fixture
+def medicos(db, especialidades):
+    medicos = [
+        {
+            "crm": 3711,
+            "nome": "Drauzio Varella",
+            "especialidade": Especialidade.objects.get(pk=especialidades[2].get('id')),
+        },
+        {
+            "crm": 2544,
+            "nome": "Gregory House",
+            "especialidade": Especialidade.objects.get(pk=especialidades[3].get('id')),
+        },
+        {
+            "crm": 3087,
+            "nome": "Tony Tony Chopper",
+            "especialidade": Especialidade.objects.get(pk=especialidades[2].get('id')),
+        }
+    ]
+    for medico in medicos:
+        novo_medico = Medico.objects.create(**medico)
+        medico.update({'id': novo_medico.id})
+    return medicos
