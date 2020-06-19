@@ -19,6 +19,7 @@ psycopg2-binary = "*"
 dj3-cloudinary-storage = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"

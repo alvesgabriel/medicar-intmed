@@ -1,9 +1,17 @@
 from rest_framework import serializers
 
-from backend.atendimento.models import Especialidade
+from backend.atendimento.models import Especialidade, Medico
 
 
 class EspecialidadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Especialidade
         fields = ('id', 'nome')
+
+
+class MedicoSerializer(serializers.ModelSerializer):
+    especialidade = EspecialidadeSerializer(read_only=True)
+
+    class Meta:
+        model = Medico
+        fields = ('id', 'nome', 'crm', 'email', 'telefone', 'especialidade')
