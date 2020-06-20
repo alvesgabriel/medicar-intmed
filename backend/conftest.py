@@ -1,7 +1,24 @@
+from datetime import datetime, timedelta
+
 import pytest
 from django.urls import reverse
 
-from backend.atendimento.models import Especialidade, Medico
+from backend.atendimento.models import Agenda, Especialidade, Medico
+
+
+@pytest.fixture
+def hoje():
+    return datetime.now().strftime("%Y-%m-%d")
+
+
+@pytest.fixture
+def dez_dias(hoje):
+    return (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d")
+
+
+@pytest.fixture
+def trinta_dias(hoje):
+    return (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
 
 
 @pytest.fixture
@@ -35,6 +52,7 @@ def especialidades(db):
         {"nome": "Ginecologia"},
         {"nome": "Cardiologia"},
         {"nome": "Clínico Geral"},
+        {"nome": "Oncologia"},
     ]
     for especialidade in especialidades:
         nova_especialidade = Especialidade.objects.create(**especialidade)
@@ -59,9 +77,39 @@ def medicos(db, especialidades):
             "crm": 3087,
             "nome": "Tony Tony Chopper",
             "especialidade": Especialidade.objects.get(pk=especialidades[2].get('id')),
+        },
+        {
+            "crm": 4846,
+            "nome": "James Wilson",
+            "especialidade": Especialidade.objects.get(pk=especialidades[4].get('id')),
         }
     ]
     for medico in medicos:
         novo_medico = Medico.objects.create(**medico)
         medico.update({'id': novo_medico.id})
     return medicos
+
+
+@pytest.fixture
+def agendas(db, medicos, hoje, trinta_dias):
+    agendas = [
+        {
+            "medico": Medico.objects.get(pk=medicos[2].get('id')),
+            "dia": hoje,
+            "horarios": ["14:00", "14:15", "16:00"]
+        },
+        {
+            "medico": Medico.objects.get(pk=medicos[1].get('id')),
+            "dia": trinta_dias,
+            "horarios": ["08:00", "08:30", "09:00", "09:30", "14:00"]
+        },
+        {
+            "medico": Medico.objects.get(pk=medicos[3].get('id')),
+            "dia": trinta_dias,
+            "horarios": ["08:00", "08:30", "09:00", "09:30", "14:00"]
+        }
+    ]
+    for agenda in agendas:
+        nova_agenda = Agenda.objects.create(**agenda)
+        agenda.update({'id': nova_agenda.id})
+    return agendas

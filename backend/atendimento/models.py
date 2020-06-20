@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -17,3 +18,12 @@ class Medico(models.Model):
     telefone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$', message="Número de telefone deve ter o formato: '+999999999'. Máximo 15 dígitos.")
     telefone = models.CharField(validators=[telefone_regex], max_length=17, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.id}: {self.nome}'
+
+
+class Agenda(models.Model):
+    dia = models.DateField()
+    horarios = ArrayField(models.TimeField())
+    medico = models.ForeignKey(Medico, on_delete=models.PROTECT)
