@@ -10,6 +10,11 @@ class EspecialidadeAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Medico)
-class MedicoAdin(admin.ModelAdmin):
+class MedicoAdmin(admin.ModelAdmin):
     list_display = ('id', 'nome', 'crm')
     list_filter = ('nome', 'crm')
+
+
+@admin.register(models.Agenda)
+class AgendaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'dia', 'medico')

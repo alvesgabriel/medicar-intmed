@@ -163,6 +163,9 @@ REST_FRAMEWORK = {
     ]
 }
 
+if DEBUG:
+    REST_FRAMEWORK.get('DEFAULT_AUTHENTICATION_CLASSES').append('rest_framework.authentication.SessionAuthentication')
+
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = config('CORS_ORIGIN_WHITELIST', cast=Csv(), default='http://localhost:8100')
