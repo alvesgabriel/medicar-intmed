@@ -15,6 +15,13 @@ class MedicoAdmin(admin.ModelAdmin):
     list_filter = ('nome', 'crm')
 
 
+class ConsultaInline(admin.TabularInline):
+    model = models.Consulta
+    exclude = ('usuario', 'dia')
+
+
 @admin.register(models.Agenda)
 class AgendaAdmin(admin.ModelAdmin):
+    fields = (('dia', 'medico'),)
     list_display = ('id', 'dia', 'medico')
+    inlines = (ConsultaInline,)

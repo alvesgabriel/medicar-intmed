@@ -1,6 +1,7 @@
-from django.contrib.postgres.fields import ArrayField
 from django.core.validators import RegexValidator
 from django.db import models
+
+from backend.core.models import User
 
 
 class Especialidade(models.Model):
@@ -25,5 +26,20 @@ class Medico(models.Model):
 
 class Agenda(models.Model):
     dia = models.DateField()
-    horarios = ArrayField(models.TimeField())
     medico = models.ForeignKey(Medico, on_delete=models.PROTECT)
+
+
+class Consulta(models.Model):
+    dia = models.DateTimeField()
+    horario = models.TimeField()
+    agenda = models.ForeignKey(Agenda, related_name='horarios', on_delete=models.PROTECT)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.dia is None:
+            agenda = Agenda.objects.get(pk=self.agenda.id)
+            self.dia = agenda.dia.strftime(f'%Y-%m-%d {self.horario}')
+        super(Consulta, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.horario}'

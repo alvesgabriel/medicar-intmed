@@ -43,6 +43,7 @@ class AgendaViewSet(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
+        hoje = datetime.now()
 
         medicos = self.request.query_params.getlist('medico')
         if medicos:
@@ -57,7 +58,8 @@ class AgendaViewSet(ReadOnlyModelViewSet):
         if data_inicio and data_final:
             queryset = queryset.filter(dia__range=(data_inicio, data_final))
         else:
-            hoje = datetime.now().strftime('%Y-%m-%d')
-            queryset = queryset.filter(dia__gte=hoje)
+            queryset = queryset.filter(dia__gte=hoje.strftime('%Y-%m-%d'))
+
+        queryset = queryset.order_by('dia')
 
         return queryset
