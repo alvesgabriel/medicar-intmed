@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import pytest
 from django.urls import reverse
 
-from backend.atendimento.models import Agenda, Especialidade, Medico
+from backend.atendimento.models import Agenda, Consulta, Especialidade, Medico
 
 
 @pytest.fixture
@@ -96,20 +96,40 @@ def agendas(db, medicos, hoje, trinta_dias):
         {
             "medico": Medico.objects.get(pk=medicos[2].get('id')),
             "dia": hoje,
-            "horarios": ["14:00", "14:15", "16:00"]
+            "horarios": [
+                Consulta(horario='14:00', dia=f"{hoje} 14:00"),
+                Consulta(horario='14:15', dia=f"{hoje} 14:15"),
+                Consulta(horario='16:00', dia=f"{hoje} 16:00"),
+            ]
         },
         {
             "medico": Medico.objects.get(pk=medicos[1].get('id')),
             "dia": trinta_dias,
-            "horarios": ["08:00", "08:30", "09:00", "09:30", "14:00"]
+            "horarios": [
+                Consulta(horario='08:00', dia=f"{trinta_dias} 08:00"),
+                Consulta(horario='08:30', dia=f"{trinta_dias} 08:30"),
+                Consulta(horario='09:00', dia=f"{trinta_dias} 09:00"),
+                Consulta(horario='09:30', dia=f"{trinta_dias} 09:30"),
+                Consulta(horario='14:00', dia=f"{trinta_dias} 14:00")
+            ]
         },
         {
             "medico": Medico.objects.get(pk=medicos[3].get('id')),
             "dia": trinta_dias,
-            "horarios": ["08:00", "08:30", "09:00", "09:30", "14:00"]
+            "horarios": [
+                Consulta(horario='08:00', dia=f"{trinta_dias} 08:00"),
+                Consulta(horario='08:30', dia=f"{trinta_dias} 08:30"),
+                Consulta(horario='09:00', dia=f"{trinta_dias} 09:00"),
+                Consulta(horario='09:30', dia=f"{trinta_dias} 09:30"),
+                Consulta(horario='14:00', dia=f"{trinta_dias} 14:00"),
+            ]
         }
     ]
     for agenda in agendas:
+        horarios = agenda.pop('horarios')
         nova_agenda = Agenda.objects.create(**agenda)
         agenda.update({'id': nova_agenda.id})
+        for horario in horarios:
+            horario.agenda = nova_agenda
+        Consulta.objects.bulk_create(horarios)
     return agendas
