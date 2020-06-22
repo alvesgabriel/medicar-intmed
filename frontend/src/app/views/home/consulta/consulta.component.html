@@ -1,0 +1,46 @@
+<div class="example-container">
+  <div class="box">
+
+    <h1 class="title">Nova Consulta</h1>
+
+    <form #form="ngForm" [formGroup]="consultaForm">
+
+      <mat-form-field formControlName="especialidades">
+        <mat-label>Especialidade</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let especialidade of especialidadesList" value="{{especialidade.id}}">
+            {{especialidade.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field formControlName="medicos">
+        <mat-label>Medico</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let medico of medicosList" value="{{medico.id}}">{{medico.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field formControlName="agendas">
+        <mat-label>Dia</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let agenda of agendasList" value="{{agenda.id}}">{{agenda.dia}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field formControlName="hora">
+        <mat-label>Hora</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let horario of horariosList" value="{{horario}}">{{horario}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <button mat-flat-button fxFlex="0 1 calc(50% - 11px)" fxFlex-lt-md="0 1 calc(50% - 11px)" fxFlex-lt-sm="100%"
+          (click)="close()" class="cancelar">Cancelar</button>
+        <button mat-flat-button fxFlex="0 1 calc(50% - 11px)" fxFlex-lt-md="0 1 calc(50% - 11px)" fxFlex-lt-sm="100%"
+          class="confirmar">Confirmar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
