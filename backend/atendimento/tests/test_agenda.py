@@ -45,7 +45,7 @@ def test_list_agendas_especialidades(db, client, auth_token, agendas):
     assert body.get('count') == 2
 
 
-def test_list_agendas_intervalo_data(db, client, auth_token, agendas, hoje, dez_dias):
-    resp = client.get(f'/agendas/?data_inicio={hoje}&data_final={dez_dias}', **auth_token)
+def test_list_agendas_intervalo_data(db, client, auth_token, agendas, amanha, dez_dias):
+    resp = client.get(f'/agendas/?data_inicio={amanha}&data_final={dez_dias}', **auth_token)
     body = resp.json()
     assert body.get('count') == 1

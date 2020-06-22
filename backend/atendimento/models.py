@@ -34,6 +34,7 @@ class Consulta(models.Model):
     horario = models.TimeField()
     agenda = models.ForeignKey(Agenda, related_name='horarios', on_delete=models.PROTECT)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    data_agendamento = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if self.dia is None:

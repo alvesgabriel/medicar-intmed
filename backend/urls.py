@@ -18,8 +18,8 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-from backend.atendimento.views import (AgendaViewSet, EspecialidadeViewSet,
-                                       MedicoViewSet)
+from backend.atendimento.views import (AgendaViewSet, ConsultaViewSet,
+                                       EspecialidadeViewSet, MedicoViewSet)
 from backend.core.views import UserViewSet
 
 router = routers.DefaultRouter()
@@ -27,6 +27,7 @@ router.register(r'users', UserViewSet)
 router.register(r'especialidades', EspecialidadeViewSet)
 router.register(r'medicos', MedicoViewSet)
 router.register(r'agendas', AgendaViewSet)
+router.register(r'consultas', ConsultaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

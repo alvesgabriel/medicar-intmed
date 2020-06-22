@@ -8,17 +8,22 @@ from backend.atendimento.models import Agenda, Consulta, Especialidade, Medico
 
 @pytest.fixture
 def hoje():
-    return datetime.now().strftime("%Y-%m-%d")
+    return datetime.now()
+
+
+@pytest.fixture
+def amanha(hoje):
+    return (hoje + timedelta(days=1)).strftime("%Y-%m-%d")
 
 
 @pytest.fixture
 def dez_dias(hoje):
-    return (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d")
+    return (hoje + timedelta(days=10)).strftime("%Y-%m-%d")
 
 
 @pytest.fixture
 def trinta_dias(hoje):
-    return (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
+    return (hoje + timedelta(days=30)).strftime("%Y-%m-%d")
 
 
 @pytest.fixture
@@ -91,15 +96,15 @@ def medicos(db, especialidades):
 
 
 @pytest.fixture
-def agendas(db, medicos, hoje, trinta_dias):
+def agendas(db, medicos, amanha, trinta_dias):
     agendas = [
         {
             "medico": Medico.objects.get(pk=medicos[2].get('id')),
-            "dia": hoje,
+            "dia": amanha,
             "horarios": [
-                Consulta(horario='14:00', dia=f"{hoje} 14:00"),
-                Consulta(horario='14:15', dia=f"{hoje} 14:15"),
-                Consulta(horario='16:00', dia=f"{hoje} 16:00"),
+                Consulta(horario='14:00', dia=f"{amanha} 14:00"),
+                Consulta(horario='14:15', dia=f"{amanha} 14:15"),
+                Consulta(horario='16:00', dia=f"{amanha} 16:00"),
             ]
         },
         {
@@ -132,4 +137,16 @@ def agendas(db, medicos, hoje, trinta_dias):
         for horario in horarios:
             horario.agenda = nova_agenda
         Consulta.objects.bulk_create(horarios)
+        agenda.update({'horarios': horarios})
     return agendas
+
+
+@pytest.fixture
+def add_consulta(db, client, auth_token, agendas):
+    agenda = agendas[0]
+    data = {
+        'agenda_id': agenda.get('id'),
+        'horario': agenda.get('horarios')[0].horario,
+    }
+    resp = client.post('/consultas/', data=data, **auth_token)
+    return resp.json()

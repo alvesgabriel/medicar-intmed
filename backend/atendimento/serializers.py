@@ -47,3 +47,15 @@ class AgendaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agenda
         fields = ('id', 'dia', 'horarios', 'medico')
+
+
+class ConsultaSerializer(serializers.ModelSerializer):
+    medico = serializers.SerializerMethodField('get_medico')
+
+    def get_medico(self, consulta):
+        queryset = Medico.objects.get(pk=consulta.agenda.medico.id)
+        return MedicoSerializer(instance=queryset).data
+
+    class Meta:
+        model = Consulta
+        fields = ('id', 'dia', 'horario', 'data_agendamento', 'medico')
