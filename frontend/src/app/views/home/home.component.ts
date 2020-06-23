@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConsultaComponent } from "../home/consulta/consulta.component";
 
 @Component({
   selector: 'app-home',
@@ -12,12 +14,20 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['especialidade', 'profissional', 'data', 'hora', 'desmarcar'];
   dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ConsultaComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }
