@@ -20,8 +20,6 @@ import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/home/login/login.component';
 import { UserComponent } from './views/home/user/user.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

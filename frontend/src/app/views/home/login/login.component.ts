@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { ApiService } from "../../../services/api.service";
+import { AuthService } from "../../../auth/auth.service";
 
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
   hide_pass = true;
 
   login(form) {
-    this.apiService.login(form.value).subscribe(
+    this.authService.login(form.value).subscribe(
       result => {
-        this.router.navigate([''])
+        this.router.navigate(['home'])
       },
       err => {
         alert(err.error.non_field_errors);
