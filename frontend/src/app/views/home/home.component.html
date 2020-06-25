@@ -17,36 +17,37 @@
         </button>
       </div>
 
+      <!-- <table mat-table [dataSource]="consultas"> -->
       <table mat-table [dataSource]="dataSource">
 
         <!-- Especialidade Column -->
         <ng-container matColumnDef="especialidade">
           <th mat-header-cell *matHeaderCellDef> ESPECIALIDADE </th>
-          <td mat-cell *matCellDef="let element"> {{element.medico.especialidade.nome}} </td>
+          <td mat-cell *matCellDef="let consulta"> {{consulta.medico.especialidade.nome}} </td>
         </ng-container>
 
         <!-- Profissional Column -->
         <ng-container matColumnDef="profissional">
           <th mat-header-cell *matHeaderCellDef> PROFISSIONAL </th>
-          <td mat-cell *matCellDef="let element"> Dr. {{element.medico.nome}} </td>
+          <td mat-cell *matCellDef="let consulta"> Dr. {{consulta.medico.nome}} </td>
         </ng-container>
 
         <!-- Data Column -->
         <ng-container matColumnDef="data">
           <th mat-header-cell *matHeaderCellDef> DATA </th>
-          <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+          <td mat-cell *matCellDef="let consulta"> {{consulta.dia}} </td>
         </ng-container>
 
         <!-- Hora Column -->
         <ng-container matColumnDef="hora">
           <th mat-header-cell *matHeaderCellDef> HORA </th>
-          <td mat-cell *matCellDef="let element"> {{element.horario}} </td>
+          <td mat-cell *matCellDef="let consulta"> {{consulta.horario}} </td>
         </ng-container>
 
         <ng-container matColumnDef="desmarcar">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element" class="cancelar">
-            <mat-icon>clear</mat-icon> Desmarcar {{element.id}}
+          <td mat-cell *matCellDef="let consulta" class="cancelar">
+            <mat-icon>clear</mat-icon> Desmarcar {{consulta.id}}
           </td>
         </ng-container>
 

@@ -14,10 +14,6 @@ export class AppComponent {
     private router: Router,
     private authService: AuthService,
   ) {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['']);
-    } else {
-      this.router.navigate(['login']);
-    }
+    this.authService.isLoggedIn();
   }
 }
