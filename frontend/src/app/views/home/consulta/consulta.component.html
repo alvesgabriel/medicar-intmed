@@ -5,40 +5,40 @@
 
     <form #form="ngForm" [formGroup]="consultaForm">
 
-      <mat-form-field formControlName="especialidades">
+      <mat-form-field>
         <mat-label>Especialidade</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let especialidade of especialidadesList" value="{{especialidade.id}}">
+        <mat-select (selectionChange)="getMedicos($event)" formControlName="especialidade_id">
+          <mat-option *ngFor="let especialidade of especialidades" value="{{especialidade.id}}">
             {{especialidade.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field formControlName="medicos">
+      <mat-form-field>
         <mat-label>Medico</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let medico of medicosList" value="{{medico.id}}">{{medico.nome}}</mat-option>
+        <mat-select (selectionChange)="getAgendas($event)"  formControlName="medico_id">
+          <mat-option *ngFor="let medico of medicos" value="{{medico.id}}">{{medico.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field formControlName="agendas">
+      <mat-form-field>
         <mat-label>Dia</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let agenda of agendasList" value="{{agenda.id}}">{{agenda.dia}}</mat-option>
+        <mat-select (selectionChange)="getHorarios($event)"  formControlName="agenda_id">
+          <mat-option *ngFor="let agenda of agendas" value="{{agenda.id}}">{{agenda.dia}}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field formControlName="hora">
+      <mat-form-field>
         <mat-label>Hora</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let horario of horariosList" value="{{horario}}">{{horario}}</mat-option>
+        <mat-select  formControlName="horario">
+          <mat-option *ngFor="let horario of horarios" value="{{horario}}">{{horario}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <button mat-flat-button fxFlex="0 1 calc(50% - 11px)" fxFlex-lt-md="0 1 calc(50% - 11px)" fxFlex-lt-sm="100%"
-          (click)="close()" class="cancelar">Cancelar</button>
+          (click)="closeDialog()" class="cancelar">Cancelar</button>
         <button mat-flat-button fxFlex="0 1 calc(50% - 11px)" fxFlex-lt-md="0 1 calc(50% - 11px)" fxFlex-lt-sm="100%"
-          class="confirmar">Confirmar</button>
+          class="confirmar" (click)="addConsulta(form)">Confirmar</button>
       </div>
 
     </form>

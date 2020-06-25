@@ -1,9 +1,8 @@
 import { medico } from "./medico.response";
 
-export interface consulta {
+export interface agenda {
   id: number;
   dia: string;
-  horario: string;
-  data_agendamento: string;
+  horarios: string[];
   medico: medico;
 }
