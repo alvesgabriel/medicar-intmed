@@ -1,7 +1,5 @@
 export interface AuthResponse {
-  user: {
-    id: number,
-    name: string,
-    token: string,
-  };
+  id: number,
+  name: string,
+  token: string,
 }

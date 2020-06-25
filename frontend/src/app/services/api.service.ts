@@ -26,4 +26,8 @@ export class ApiService {
   login(data): Observable<any> {
     return this.httpClient.post(`${this.SERVER_URL}/login/`, data, this.httpOptions);
   }
+
+  getConsultas(): Observable<any> {
+    return this.httpClient.get(`${this.SERVER_URL}/consultas/`, this.httpOptions);
+  }
 }
