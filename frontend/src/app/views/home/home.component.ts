@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getConsultas().subscribe((data)=>{    
-      this.dataSource  =  data['results'];
-    })
+    this.apiService.getConsultas().subscribe((data) => {
+      this.dataSource = data['results'];
+    });
   }
 
   openDialog() {

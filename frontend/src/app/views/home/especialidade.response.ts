@@ -1,4 +1,4 @@
 export interface especialidade {
-  id: number,
-  nome: string,
+  id: number;
+  nome: string;
 }

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
 import { Router } from "@angular/router";
 import { ApiService } from "../../../services/api.service";
+import { agenda } from '../agenda.response';
+import { especialidade } from '../especialidade.response';
+import { medico } from '../medico.response';
 
 @Component({
   selector: 'app-consulta',
@@ -11,78 +15,11 @@ import { ApiService } from "../../../services/api.service";
 })
 export class ConsultaComponent implements OnInit {
 
-  especialidadesList = [
-    { id: 1, nome: "Pediatria" },
-    { id: 2, nome: "Ginecologia" },
-    { id: 3, nome: "Cardiologia" },
-    { id: 4, nome: "Clínico Geral" },
-    { id: 5, nome: "Oncologia" },
-  ];
-
-  medicosList = [
-    {
-      id: 1,
-      crm: 3711,
-      nome: "Drauzio Varella",
-      especialidade: {
-        id: 2,
-        nome: "Pediatria"
-      }
-    },
-    {
-      id: 2,
-      crm: 2544,
-      nome: "Gregory House",
-      especialidade: {
-        id: 3,
-        nome: "Cardiologia"
-      }
-    },
-    {
-      id: 3,
-      crm: 3087,
-      nome: "Tony Tony Chopper",
-      especialidade: {
-        id: 2,
-        nome: "Pediatria"
-      }
-    }
-  ];
-
-  agendasList = [
-    {
-      id: 1,
-      medico: {
-        id: 3,
-        crm: 3087,
-        nome: "Tony Tony Chopper",
-        especialidade: {
-          id: 2,
-          nome: "Pediatria"
-        }
-      },
-      dia: "2020-02-10",
-      horarios: ["14:00", "14:15", "16:00"]
-    },
-    {
-      id: 2,
-      medico: {
-        id: 2,
-        crm: 2544,
-        nome: "Gregory House",
-        especialidade: {
-          id: 3,
-          nome: "Cardiologia"
-        }
-      },
-      dia: "2020-02-10",
-      horarios: ["08:00", "08:30", "09:00", "09:30", "14:00"]
-    }
-  ];
-
-  horariosList = ["08:00", "08:30", "09:00", "09:30", "14:00"];
-
   public consultaForm: FormGroup;
+  especialidades: especialidade[];
+  medicos: medico[];
+  agendas: agenda[];
+  horarios: string[];
 
   constructor(
     private router: Router,
@@ -96,12 +33,44 @@ export class ConsultaComponent implements OnInit {
       especialidade_id: new FormControl('', [Validators.required]),
       medico_id: new FormControl('', [Validators.required]),
       agenda_id: new FormControl('', [Validators.required]),
-      hora: new FormControl('', [Validators.required]),
-    })
+      horario: new FormControl('', [Validators.required]),
+    });
+    this.getEspecialidades();
   }
 
-  close() {
+  closeDialog() {
     this.dialogRef.close();
+  }
+
+  getEspecialidades() {
+    this.apiService.getEspecialidades().subscribe(data => {
+      this.especialidades = data.results;
+    });
+  }
+
+  getMedicos(event: MatSelectChange) {
+    this.apiService.getMedicos(event.value).subscribe(data => {
+      this.medicos = data.results;
+    });
+  }
+
+  getAgendas(event: MatSelectChange) {
+    this.apiService.getAgendas(event.value).subscribe(data => {
+      this.agendas = data.results;
+    });
+  }
+
+  getHorarios(event: MatSelectChange) {
+    this.apiService.getHorarios(event.value).subscribe(data => {
+      this.horarios = data['horarios'];
+    });
+  }
+
+  addConsulta(form) {
+    this.apiService.addConsulta(form.value).subscribe(() => {
+      this.closeDialog();
+      this.router.navigate(['home']);
+    });
   }
 
 }
