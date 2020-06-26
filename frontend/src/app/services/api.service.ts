@@ -29,7 +29,15 @@ export class ApiService {
   }
 
   getConsultas(): Observable<ApiResponse> {
-    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/consultas/`, this.httpOptions);
+    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/consultas/?ordering=dia`, this.httpOptions);
+  }
+
+  addConsulta(data): Observable<any> {
+    return this.httpClient.post(`${this.SERVER_URL}/consultas/`, data, this.httpOptions);
+  }
+
+  delConsulta(consulta_id: number) {
+    return this.httpClient.delete(`${this.SERVER_URL}/consultas/${consulta_id}/`, this.httpOptions);
   }
 
   getEspecialidades(): Observable<ApiResponse> {
@@ -37,18 +45,15 @@ export class ApiService {
   }
 
   getMedicos(especialidade_id: number): Observable<ApiResponse> {
-    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/medicos/?especialidade=${especialidade_id}` , this.httpOptions);
+    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/medicos/?especialidade=${especialidade_id}`, this.httpOptions);
   }
 
   getAgendas(medico_id: number): Observable<ApiResponse> {
-    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/agendas/?medico=${medico_id}` , this.httpOptions);
+    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/agendas/?medico=${medico_id}`, this.httpOptions);
   }
 
   getHorarios(agenda_id: number): Observable<ApiResponse> {
-    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/agendas/${agenda_id}/` , this.httpOptions);
+    return this.httpClient.get<ApiResponse>(`${this.SERVER_URL}/agendas/${agenda_id}/`, this.httpOptions);
   }
 
-  addConsulta(data): Observable<any> {
-    return this.httpClient.post(`${this.SERVER_URL}/consultas/`, data, this.httpOptions);
-  }
 }
