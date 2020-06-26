@@ -48,3 +48,14 @@
     color: #FFFFFF;
     background: #49B4BB;
 }
+
+.text-gray {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    align-items: center;
+    text-align: center;
+    color: #A8A8A8;
+}

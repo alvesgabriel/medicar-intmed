@@ -1,25 +1,17 @@
-.top-bar {
-
+.spacer {
+    flex: 1 1 auto;
 }
 
 .box {
     border: 10px;
 }
 
-#header-list-title {
-    display: inline-block;
-    /* margin-right: 10px; */
-    float: left;
-}
-
-#header-list-button {
-    display: inline-block;
-    float: right;
-    margin-right: 10px;
-}
-
 table {
     width: 100%;
+}
+
+mat-toolbar {
+    background-color: #fff;
 }
 
 mat-cell {
@@ -52,4 +44,9 @@ mat-cell {
     align-items: center;
     text-align: center;
     color: #49B4BB;
+    border: 0px;
+}
+
+mat-button-toggle {
+    background-color: #fff;
 }
