@@ -47,7 +47,9 @@
         <ng-container matColumnDef="desmarcar">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let consulta" class="cancelar">
-            <mat-icon>clear</mat-icon> Desmarcar {{consulta.id}}
+            <button mat-flat-button id="header-list-button" class="desmarcar" (click)="delConsulta(consulta)">
+              <mat-icon>clear</mat-icon> Desmarcar
+            </button>
           </td>
         </ng-container>
 

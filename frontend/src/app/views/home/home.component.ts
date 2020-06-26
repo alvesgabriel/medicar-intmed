@@ -25,9 +25,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getConsultas().subscribe((data) => {
-      this.dataSource = data['results'];
-    });
+    // this.apiService.getConsultas().subscribe((data) => {
+    //   this.dataSource = data['results'];
+    // });
+    this.getConsultas();
   }
 
   openDialog() {
@@ -35,6 +36,19 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  getConsultas() {
+    this.apiService.getConsultas().subscribe((data) => {
+      this.dataSource = data['results'];
+    });
+  }
+
+  delConsulta(consulta: consulta) {
+    console.log("CONSULTA: ", consulta.id);
+    this.apiService.delConsulta(consulta.id).subscribe(() => {
+      this.getConsultas();
     });
   }
 
