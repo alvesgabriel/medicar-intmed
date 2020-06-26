@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { AuthResponse } from 'src/app/auth/auth.response';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { ConsultaComponent } from "../home/consulta/consulta.component";
@@ -17,6 +18,8 @@ export class HomeComponent implements OnInit {
   dataSource: consulta[] = [];
 
   consultas: consulta[];
+
+  user: AuthResponse;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -41,6 +44,7 @@ export class HomeComponent implements OnInit {
   getConsultas() {
     this.apiService.getConsultas().subscribe((data) => {
       this.dataSource = data['results'];
+      this.user = this.authService.auth;
     });
   }
 

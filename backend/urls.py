@@ -16,11 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from rest_framework.authtoken.views import obtain_auth_token
 
 from backend.atendimento.views import (AgendaViewSet, ConsultaViewSet,
                                        EspecialidadeViewSet, MedicoViewSet)
-from backend.core.views import UserViewSet
+from backend.core.views import CustomObtainAuthToken, UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -31,7 +30,7 @@ router.register(r'consultas', ConsultaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('login/', obtain_auth_token, name='login_token'),
+    path('login/', CustomObtainAuthToken.as_view(), name='login_token'),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ]
