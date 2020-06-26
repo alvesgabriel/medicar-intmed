@@ -3,19 +3,29 @@
 
   <div class="container-dashboard">
 
-    <div class="top-bar">
-      <img class="logo" src="assets/logo.png" />
-    </div>
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <img class="logo" src="assets/logo.png" />
+        <span class="spacer"></span>
+        <span class="spacer"></span>
+        <span class="spacer"></span>
+        <span class="text-gray">Usuário</span>
+        <span class="spacer"></span>
+        <mat-button-toggle class="desmarcar" (click)="logout()">Desconectar</mat-button-toggle>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
     <div class="box" class="mat-elevation-z1">
 
-      <div class="header-list">
-        <h1 id="header-list-title" class="title">Consulta Clínica</h1>
-
-        <button mat-flat-button id="header-list-button" class="confirmar" (click)="openDialog()">
-          <mat-icon>add</mat-icon> Nova Consulta
-        </button>
-      </div>
+      <mat-toolbar>
+        <mat-toolbar-row>
+          <h1 class="title">Consulta Clínica</h1>
+          <span class="spacer"></span>
+          <button mat-flat-button class="confirmar" (click)="openDialog()">
+            <mat-icon>add</mat-icon> Nova Consulta
+          </button>
+        </mat-toolbar-row>
+      </mat-toolbar>
 
       <!-- <table mat-table [dataSource]="consultas"> -->
       <table mat-table [dataSource]="dataSource">
@@ -47,9 +57,9 @@
         <ng-container matColumnDef="desmarcar">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let consulta" class="cancelar">
-            <button mat-flat-button id="header-list-button" class="desmarcar" (click)="delConsulta(consulta)">
+            <mat-button-toggle class="desmarcar" (click)="delConsulta(consulta)">
               <mat-icon>clear</mat-icon> Desmarcar
-            </button>
+            </mat-button-toggle>
           </td>
         </ng-container>
 
