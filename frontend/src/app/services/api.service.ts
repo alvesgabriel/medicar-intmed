@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { ApiResponse } from './api.response';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { ApiResponse } from './api.response';
 })
 export class ApiService {
 
-  SERVER_URL = 'http://localhost:8080';
+  SERVER_URL = environment.apiUrl;
 
   httpOptions = {
     headers: new HttpHeaders({
