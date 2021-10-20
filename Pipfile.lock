@@ -54,11 +54,10 @@
         },
         "dj3-cloudinary-storage": {
             "hashes": [
-                "sha256:23fbebf167d3cc5b7f0ead5577ea3a523a3a6e45929aeb3bf68e58325be66e1e",
-                "sha256:bebd65073b3b72c9ff9c4a4d295aad7dfac20c8cd37a8b2ef8c5cffed219b665"
+                "sha256:176632ce59aefad354f558c7d1672f37ac356c4c11d2928256ea854752e481d5",
+                "sha256:bc2d7087abc71e17a6028d60d8f65adfc865cbd9372bf6813ee61e3ad6fead66"
             ],
-            "index": "pypi",
-            "version": "==0.0.3"
+            "version": "==0.0.6"
         },
         "django": {
             "hashes": [
